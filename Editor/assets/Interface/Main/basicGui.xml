@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+    <useStyles filename="nifty-default-styles.xml" />
+    <useStyles filename="Interface/Styles/panels-style-my.xml"/>  
+    <useStyles filename="Interface/Styles/button-my.xml" />
+    <useStyles filename="Interface/Styles/nifty-checkbox-my.xml" />
+    <useStyles filename="Interface/Styles/nifty-tabs-my.xml" />
+    <useStyles filename="Interface/Styles/scrollbar-style-my.xml" />
+    <useStyles filename="Interface/Styles/nifty-listbox-style-my.xml" />
+    <useStyles filename="Interface/Styles/nifty-textfield-my.xml" />
+    <useStyles filename="Interface/Styles/layerStyles.xml" />
+    
+    <useControls filename="nifty-default-controls.xml" />
+    <useControls filename="Interface/Controls/nifty-scrollpanel-my.xml" />
+    <!--<useControls filename="Interface/Controls/nifty-treebox-my.xml" />-->
+    <useControls filename="Interface/Controls/nifty-listbox-my.xml" />
+    <useControls filename="Interface/Controls/layerControl.xml" />
+  
+    
+            
+    <screen id="null" controller="com.swe.gui.EditorGuiManager">
+        <layer id="emptyLayer" childLayout="center">
+        </layer>
+    </screen>  
+
+   
+
+    <screen id="start" controller="com.swe.gui.EditorGuiManager">
+
+        <layer id="layer" childLayout="center">
+                
+            <panel width="100%" height="100%" childLayout="horizontal" align="center" valign="center">
+
+
+
+                <!--Tools Panel-->   
+                <panel id="toolsPanel" width="150px" height="95%" align="left" valign="center" childLayout="vertical" padding="5" >
+                    <control id="toolsTabsGroup" name="tabGroup">
+                                                        
+                        <control id="ToolsTab" name="tab" caption="Tools" group="toolsTabsGroup"  style="nifty-tabs-my"> 
+                                            
+                               
+                            <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >                             
+                                <panel width="100%" height="1200px" align="left" valign="center" childLayout="vertical">
+                                    <effect>
+                                        <onStartScreen  name="fade" startColor="#0000" endColor="#000f" length="1500"/>
+                                        <onEndScreen name="move" mode="out" direction="bottom" length="300" startDelay="0" inherit="true"/>
+                                    </effect>
+                
+                                    <panel height="5px" padding="10" />
+                            
+                                    <!--Transforms-->
+                                    <control name="label" text="Transforms" with="100%"/>
+                                    <panel height="26px" align="center" childLayout="horizontal">
+                                        <control id="button_move" name="button" style="ma_button" width="30px" label="M" >
+                                            <interact onClick="setMoveManipulator()"/>
+                                        </control>              
+
+                                        <control id="button_rotate" name="button" style="ma_button" width="30px" label="R" >
+                                            <interact onClick="setRotateManipulator()"/>
+                                        </control> 
+                                
+                                        <control id="button_scale" name="button" style="ma_button" width="30px" label="S" >
+                                            <interact onClick="setScaleManipulator()"/>
+                                        </control>
+                                    </panel>  
+        
+                                    <panel height="5px" padding="10">
+                                    </panel>
+          
+                                    <!--Coords-->
+                                    <control name="label" text="Coordinates" with="100%"/>
+                                    <panel height="26px" align="center" childLayout="horizontal">
+                                        <control id="button_set_world_coords" name="button" style="ma_button" width="30px" label="W" >
+                                            <interact onClick="setWorldCoords()"/>
+                                        </control>              
+                                        <control id="button_set_local_coords" name="button" style="ma_button" width="30px" label="L" >
+                                            <interact onClick="setLocalCoords()"/>
+                                        </control>  
+                                        <control id="button_set_view_coords" name="button" style="ma_button" width="30px" label="V" >
+                                            <interact onClick="setViewCoords()"/>
+                                        </control>   
+                                    </panel>                               
+        
+                                    <panel height="5px" padding="10" />
+
+                                    <!--Clear Transforms-->
+                                    <control name="label" text="Clear Transforms" with="100%"/>
+                                    <panel height="26px" align="center" childLayout="horizontal">
+                                        <control id="button_clear_location" name="button" style="ma_button" width="30px" label="L" >
+                                            <interact onClick="clearTransform(Translation)"/>
+                                        </control>              
+                                
+                                        <control id="button_clear_rotation" name="button" style="ma_button" width="30px" label="R" >
+                                            <interact onClick="clearTransform(Rotation)"/>
+                                        </control>              
+
+                                        <control id="button_clear_scale" name="button" style="ma_button" width="30px" label="S" >
+                                            <interact onClick="clearTransform(Scale)"/>
+                                        </control>              
+                                    </panel>                       
+
+                                    <panel height="5px" padding="10" />
+                    
+                                    <panel height="26px" align="center" childLayout="vertical">
+                                        <control id="button_snap_grid" name="button" style="ma_button" label="Snap Grid" >
+                                            <interact onClick="snapObjectsToGrid()"/>
+                                        </control>              
+                                    </panel>        
+
+                                    <panel height="5px" padding="10" />
+
+                                    <panel align="center" childLayout="vertical">
+                                        <panel height="26px" align="center" childLayout="vertical">
+                                            <control id="cloneSelectedButton()" name="button" valign="center" align="center" style="ma_button" label="CloneSelected" >
+                                                <interact onClick="cloneSelectedButton()"/>
+                                            </control>
+                                        </panel>
+                       
+                                        <panel height="26px" align="center" childLayout="vertical">
+                                            <control id="moveToLayerTrue" name="button" style="ma_button" label="MoveToLayer" >
+                                                <interact onClick="moveToLayerEnable(true)"/>
+                                            </control>
+                                        </panel>
+                        
+                                        <panel height="26px" align="center" childLayout="vertical">
+                                            <control id="selectAllButton" name="button" style="ma_button" label="SelectAll" >
+                                                <interact onClick="selectAllButton()"/>
+                                            </control>                        
+                                        </panel>
+                                    </panel>                        
+                    
+                                    <panel height="5px" padding="10" />
+                    
+                                    <panel height="26px" align="center" childLayout="vertical">
+                                        <control id="button_set_grid" name="button" style="ma_button" label="Show Grid">
+                                            <interact onClick="setGrid()"/>
+                                        </control>              
+                                    </panel>
+                                                                                                                                                                                                                                            
+                                    <panel height="5px" padding="10" />
+                    
+                                    <panel height="26px" align="center" childLayout="vertical">
+                                        <control id="removeEntityInScene" name="button" valign="center" align="center" style="ma_button" label="RemoveSelected" >
+                                            <interact onClick="removeSelectedButton()"/>
+                                        </control>                                                                          
+                                    </panel>     
+
+                                    <panel height="26px" align="center" childLayout="vertical">
+                                        <control id="openPopupKeys" name="button" style="ma_button" label="Shortcuts" >
+                                            <interact onClick="popupKeys(true)"/>
+                                        </control> 
+                                    </panel>     
+
+                                </panel>
+                            </control>
+                        
+                        </control>
+                    
+                        <control id="ConstraintsTab" name="tab" caption="Const" group="toolsTabsGroup"  width="150px" height="95%" style="nifty-tabs-my"> 
+                                            
+                            <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >                             
+                                
+
+                                <panel width="100%" height="100%" childLayout="vertical"> 
+                                
+                                    <panel height="5px" padding="10">
+                                    </panel>
+                            
+                                    <!--Constraints Movement-->
+                                    <control name="label" text="Movement" with="100%"/>
+                                    <panel childLayout="vertical" align="center" valign="center" width="90%" height="120px" >
+                                        <control id="RadioMoveConstraint" name="radioButtonGroup" />
+                                        <panel width="10" />
+                                        <panel childLayout="vertical" paddingLeft="7px" paddingRight="7px" paddingTop="4px" paddingBottom="4px" width="100%">
+                                            <effect>
+                                                <onActive name="border" color="#0003" />
+                                            </effect>
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="None" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_none" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="0.5" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_0.5" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="1" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_1" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>
+                            
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="5" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_5" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>                            
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="10" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_10" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="50" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="move_constraint_50" group="RadioMoveConstraint" />
+                                                </panel>
+                                            </panel>
+                                                                                                                                                                                                            
+                                        </panel>
+                                    </panel>
+
+                                    <panel height="5px" padding="10">
+                                    </panel>
+                                
+                                
+                                    <!--Constraints Rotation-->
+                                    <control name="label" text="Rotation" with="100%"/>
+                                    <panel childLayout="vertical" align="center" valign="center" width="90%" height="120px" >
+                                        <control id="RadioRotateConstraint" name="radioButtonGroup" />
+                                        <panel width="10" />
+                                        <panel childLayout="vertical" paddingLeft="7px" paddingRight="7px" paddingTop="4px" paddingBottom="4px" width="100%">
+                                            <effect>
+                                                <onActive name="border" color="#0003" />
+                                            </effect>
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="None" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="rotate_constraint_none" group="RadioRotateConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="1" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="rotate_constraint_1" group="RadioRotateConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="5" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="rotate_constraint_5" group="RadioRotateConstraint" />
+                                                </panel>
+                                            </panel>
+                            
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="10" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="rotate_constraint_10" group="RadioRotateConstraint" />
+                                                </panel>
+                                            </panel>                            
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="45" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="rotate_constraint_45" group="RadioRotateConstraint" />
+                                                </panel>
+                                            </panel>                            
+                                                                    
+                                        </panel>
+                                    </panel>
+
+                                    <panel height="5px" padding="10">
+                                    </panel>
+                            
+                            
+                                    <!--Constraints Scale-->
+                                    <control name="label" text="Scale" with="100%"/>
+                                    <panel childLayout="vertical" align="center" valign="center" width="90%" height="80px" >
+                                        <control id="RadioScaleConstraint" name="radioButtonGroup" />
+                                        <panel width="10" />
+                                        <panel childLayout="vertical" paddingLeft="7px" paddingRight="7px" paddingTop="4px" paddingBottom="4px" width="100%">
+                                            <effect>
+                                                <onActive name="border" color="#0003" />
+                                            </effect>
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="None" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="scale_constraint_none" group="RadioScaleConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="0.1" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="scale_constraint_0.1" group="RadioScaleConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                            <panel childLayout="horizontal" width="100%" align="right">
+                                                <panel childLayout="horizontal" width="70%" align="right">
+                                                    <control name="label" text="0.5" with="100%"/>
+                                                </panel>                        
+                                                <panel childLayout="horizontal" width="30%">
+                                                    <control name="radioButton" id="scale_constraint_0.5" group="RadioScaleConstraint" />
+                                                </panel>
+                                            </panel>
+
+                                        </panel>
+                                    </panel>
+
+                                    <panel height="5px" padding="10">
+                                    </panel>
+                              
+                                </panel>
+                                    
+                            </control> 
+                        </control>
+                    
+                    </control>
+                </panel>
+                
+                           
+                                                 
+                <!--Layers Panel-->
+                <panel id="bottomPanel" height="1px" valign="bottom" align="center" childLayout="center">
+                </panel>
+
+                                
+                <!--Settings panel-->
+                
+                <panel id="settingsRightPanel" height="100%" width="256px" valign="center" align="center" childLayout="horizontal" padding="0" >
+                    <effect>
+                        <onStartScreen  name="fade" startColor="#0000" endColor="#000f" length="1500"/>
+                        <onEndScreen name="move" mode="out" direction="bottom" length="300" startDelay="0" inherit="true"/>
+                    </effect>
+                
+                    
+                    <panel id="settingsRightPanel2" height="100%" width="250px" valign="center" align="center" childLayout="horizontal" padding="0" >                        
+                                                    
+                        <control id="settingsTabsGroup" name="tabGroup">
+                                
+                                                        
+                            <control id="SceneTab" name="tab" caption="Scene" group="settingsTabsGroup"  style="nifty-tabs-my">
+                                    
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1500px" width="100%" align="center" childLayout="vertical"  >
+                                
+                                        <!--                                        <panel childLayout="horizontal" padding="3" >
+                                        <control id="researchTree" name="nifty-tree-box-my" padding="3"/>
+                                        </panel>-->
+                                                                                
+                                        <panel childLayout="horizontal" padding="3">
+                                            <control id="newScene" name="button" valign="center" align="center" style="ma_button" label="New Scene" >
+                                                <interact onClick="newSceneButton()"/>
+                                            </control>
+                                            <control id="loadScene" name="button" valign="center" align="center" style="ma_button" label="Load Scene" >
+                                                <interact onClick="loadSceneButton()"/>
+                                            </control>
+                                        </panel>
+                                
+                                        <panel childLayout="horizontal" padding="3">
+                                            <control id="saveScene" name="button" valign="center" align="center" style="ma_button" label="Save Scene" >
+                                                <interact onClick="saveSceneButton()"/>
+                                            </control>                                    
+                                            <control id="saveAsNewScene" name="button" valign="center" align="center" style="ma_button" label="Save as New" >
+                                                <interact onClick="saveAsNewSceneButton()"/>
+                                            </control>
+                                        </panel>
+                                
+                                        <panel childLayout="horizontal" padding="5">
+                                            <control id="savePreviewJ3O" name="checkbox" >
+                                                <interact onClick="savePreviewJ3O()" />
+                                            </control>
+                                            <control name="label" text="Save j3o Scene" />
+                                        </panel>
+                                            
+                                        <!--Scenes, LayersGroups, Layers-->
+                                        <panel childLayout="vertical" padding="3">
+                                            <!--Scenes-->
+                                            <control name="label" text="Scenes List" />
+                                            <control id="scenesListBox" name="listBox-scene" vertical="optional" horizontal="optional" displayItems="5" selection="Single">
+                                            </control>
+
+                                            <panel childLayout="horizontal" padding="5">
+                                                <control id="isSceneEnabled" name="checkbox" >
+                                                    <interact onClick="enableSceneCheckbox(isSceneEnabled)" />
+                                                </control>
+                                                <panel width="5px" height="0px" />
+                                                <control name="label" text="Is Scene Enabled" />
+                                            </panel>
+                                            
+                                            <panel childLayout="horizontal" padding="3">
+                                                <control width="50px" id="addSceneObject" name="button" valign="center" align="center" style="ma_button" label="Add" >
+                                                    <interact onClick="changeSceneObjectButton(Add Scene)"/>
+                                                </control>
+                                                <control width="50px" id="editSceneObject" name="button" valign="center" align="center" style="ma_button" label="Edit" >
+                                                    <interact onClick="changeSceneObjectButton(Edit Scene)"/>
+                                                </control>
+                                                <control width="50px" id="deleteSceneObject" name="button" valign="center" align="center" style="ma_button" label="Del" >
+                                                    <interact onClick="changeSceneObjectButton(Delete Scene)"/>
+                                                </control>
+                                                <control width="50px" id="cloneSceneObject" name="button" valign="center" align="center" style="ma_button" label="Clone" >
+                                                    <interact onClick="changeSceneObjectButton(Clone Scene)"/>
+                                                </control>
+                                            </panel>
+                                            
+
+                                            <!--LayersGroups-->
+                                            <control name="label" text="LayersGroups List" />
+                                            <control id="layersGroupsListBox" name="listBox-layersGroup" vertical="optional" horizontal="optional" displayItems="5" selection="Single">
+                                            </control>
+                                            
+                                            <panel childLayout="horizontal" padding="5">
+                                                <control id="isLayersGroupEnabled" name="checkbox" >
+                                                    <interact onClick="enableSceneCheckbox(isLayersGroupEnabled)" />
+                                                </control>
+                                                <panel width="5px" height="0px" />
+                                                <control name="label" text="Is LayersGroup Enabled" />
+                                            </panel>
+                                            
+                                            <panel childLayout="horizontal" padding="3">
+                                                <control width="50px" id="addLayersGroup" name="button" valign="center" align="center" style="ma_button" label="Add" >
+                                                    <interact onClick="changeSceneObjectButton(Add LayersGroup)"/>
+                                                </control>
+                                                <control width="50px" id="editLayersGroup" name="button" valign="center" align="center" style="ma_button" label="Edit" >
+                                                    <interact onClick="changeSceneObjectButton(Edit LayersGroup)"/>
+                                                </control>
+                                                <control width="50px" id="deleteLayersGroup" name="button" valign="center" align="center" style="ma_button" label="Del" >
+                                                    <interact onClick="changeSceneObjectButton(Delete LayersGroup)"/>
+                                                </control>
+                                                <control width="50px" id="cloneLayersGroup" name="button" valign="center" align="center" style="ma_button" label="Clone" >
+                                                    <interact onClick="changeSceneObjectButton(Clone LayersGroup)"/>
+                                                </control>
+                                            </panel>
+                                            
+                                            
+                                            <!--Layers-->
+                                            <control name="label" text="Layers" />
+                                            <panel id="layersPanel" width="200px" height="100px" valign="bottom" align="center" childLayout="vertical" controller="com.swe.gui.LayerController">
+                            
+                                                <panel width="100%"  align="center" childLayout="horizontal" >
+                                                    
+                                                    <control id="layerBox_1" name="layerControl"></control>
+                                                    <control id="layerBox_2" name="layerControl"></control>
+                                                    <control id="layerBox_3" name="layerControl"></control>
+                                                    <control id="layerBox_4" name="layerControl"></control>
+                                                    <control id="layerBox_5" name="layerControl"></control>
+                                                    <control id="layerBox_6" name="layerControl"></control>
+                                                    <control id="layerBox_7" name="layerControl"></control>
+                                                    <control id="layerBox_8" name="layerControl"></control>
+                                                    <control id="layerBox_9" name="layerControl"></control>
+                                                    <control id="layerBox_10" name="layerControl"></control>
+                                
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                </panel> 
+                            
+                                                <panel width="100%"  align="center" childLayout="horizontal" >
+                                                    
+                                                    <control id="layerBox_11" name="layerControl"></control>
+                                                    <control id="layerBox_12" name="layerControl"></control>
+                                                    <control id="layerBox_13" name="layerControl"></control>
+                                                    <control id="layerBox_14" name="layerControl"></control>
+                                                    <control id="layerBox_15" name="layerControl"></control>
+                                                    <control id="layerBox_16" name="layerControl"></control>
+                                                    <control id="layerBox_17" name="layerControl"></control>
+                                                    <control id="layerBox_18" name="layerControl"></control>
+                                                    <control id="layerBox_19" name="layerControl"></control>
+                                                    <control id="layerBox_20" name="layerControl"></control>
+                                                    
+                                                    
+                                                </panel>
+                                                
+                                                <panel width="100%"  align="center" childLayout="horizontal" >
+                                                    
+                                                    <control id="layerBox_21" name="layerControl"></control>
+                                                    <control id="layerBox_22" name="layerControl"></control>
+                                                    <control id="layerBox_23" name="layerControl"></control>
+                                                    <control id="layerBox_24" name="layerControl"></control>
+                                                    <control id="layerBox_25" name="layerControl"></control>
+                                                    <control id="layerBox_26" name="layerControl"></control>
+                                                    <control id="layerBox_27" name="layerControl"></control>
+                                                    <control id="layerBox_28" name="layerControl"></control>
+                                                    <control id="layerBox_29" name="layerControl"></control>
+                                                    <control id="layerBox_30" name="layerControl"></control>
+                                                    
+                                                    
+                                                </panel> 
+                                                   
+                                                <panel width="100%" align="center" childLayout="horizontal" >
+                                                    
+                                                    <control id="layerBox_31" name="layerControl"></control>
+                                                    <control id="layerBox_32" name="layerControl"></control>
+                                                    <control id="layerBox_33" name="layerControl"></control>
+                                                    <control id="layerBox_34" name="layerControl"></control>
+                                                    <control id="layerBox_35" name="layerControl"></control>
+                                                    <control id="layerBox_36" name="layerControl"></control>
+                                                    <control id="layerBox_37" name="layerControl"></control>
+                                                    <control id="layerBox_38" name="layerControl"></control>
+                                                    <control id="layerBox_39" name="layerControl"></control>
+                                                    <control id="layerBox_40" name="layerControl"></control>
+                                                    
+                                                    
+                                                </panel> 
+                                                   
+                                                   
+                                            </panel>
+
+                                        </panel>
+                                        
+                                        <panel childLayout="vertical">
+                                            <control name="label" text="LayersGroup Oblects List" />
+                                    
+                                            <control id="layersGroupObjectsListBox" name="listBox-my" vertical="optional" horizontal="optional" displayItems="15" selection="Multiple">
+                                            </control>
+                                    
+                                            <panel childLayout="horizontal">
+                                                <control id="selectEntityInScene" name="button" valign="center" align="center" style="ma_button" label="SelectFromList" >
+                                                    <interact onClick="selectEntitiesButton()"/>
+                                                </control> 
+                                                <control id="showSelectedEntitiesButton" name="button" valign="center" align="center" style="ma_button" label="ShowSelected" >
+                                                    <interact onClick="showSelectedEntitiesButton()"/>
+                                                </control> 
+                                            </panel>
+                                    
+                                            <panel childLayout="horizontal">   
+                                                <control id="clearSelectedEntitiesButton" name="button" valign="center" align="center" style="ma_button" label="Clear List" >
+                                                    <interact onClick="clearSelectedEntitiesButton()"/>
+                                                </control> 
+                                            </panel>
+
+                                        </panel>
+                                       
+                                    </panel> 
+                                </control>
+                            
+                            </control>
+                        
+                        
+                            <control id="EntitiesTab" name="tab" caption="Assets" group="settingsTabsGroup" style="nifty-tabs-my">
+
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1200px" width="100%" align="center" childLayout="vertical"  >
+                                
+
+                                        <!--Assets-->
+                                        <!--Assets folder/zip/jar path-->
+                                        <panel childLayout="vertical"  width="100%" align="center">
+                                            <control name="label" text="Assets Folder" />
+                                            <control id="assetsListBox" name="listBox-my" vertical="optional" horizontal="optional" displayItems="5" selection="Single" padding="2">
+                                            </control>
+                                        </panel>
+                                
+                                   
+                                        <!--Update assets-->
+                                        <panel childLayout="horizontal" padding="3">
+                                            <control id="addAsset" name="button" valign="center" align="center" style="ma_button" label="Add Asset" >
+                                                <interact onClick="AssetButton(new)"/>
+                                            </control>
+                                            <control id="editAsset" name="button" valign="center" align="center" style="ma_button" label="Edit Asset" >
+                                                <interact onClick="AssetButton(edit)"/>
+                                            </control>
+                                        </panel>
+                                        <panel childLayout="horizontal" padding="3">
+                                            <control id="removeAsset" name="button" valign="center" align="center" style="ma_button" label="RemoveAsset" >
+                                                <interact onClick="AssetButton(remove)"/>
+                                            </control>
+                                            <control id="updateAssets" name="button" valign="center" align="center" style="ma_button" label="Update Assets" >
+                                                <interact onClick="updateAssetsButton()"/>
+                                            </control>
+                                        </panel>
+                                        
+                                        
+                                        <panel childLayout="vertical">
+                                            <control name="label" text="Assets List" />
+                                    
+                                            <control id="entitiesListBox" name="listBox-my" vertical="optional" horizontal="optional" displayItems="20" selection="Single">
+                                            </control>
+                                    
+                                            <panel childLayout="horizontal">
+                                                <control id="addEntity" name="button" valign="center" align="center" style="ma_button" label="Add Entity" >
+                                                    <interact onClick="addEntityToSceneButton()"/>
+                                                </control>
+                                                <control id="removeEntityClones" name="button" valign="center" align="center" style="ma_button" label="Remove Clones" >
+                                                    <interact onClick="removeClonesButton()"/>
+                                                </control>
+                                            </panel>
+                                            
+                                            <panel height="10px">
+                                            </panel>
+                                            
+                                            <panel childLayout="horizontal">
+                                                <control id="replaceSelectedModels" name="button" valign="center" align="center" style="ma_button" label="Replace Selected" >
+                                                    <interact onClick="replaceModelsButton()"/>
+                                                </control>                                                
+                                            </panel>
+                                                
+                                                
+                                        </panel>
+                                
+                                    </panel>
+                                </control>
+                            </control>
+                        
+                            <control id="ComponentsTab" name="tab" caption="Data" group="settingsTabsGroup" style="nifty-tabs-my">
+
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1200px" width="100%" align="center" childLayout="vertical"  >
+                                
+                                
+                                        <panel childLayout="vertical">
+                                            
+                                            <text style="ma_button#text" width="50px" text="Components"  />
+                                            <control id="componentsListBox" name="listBox-my" vertical="optional" horizontal="optional" displayItems="10" selection="Multiple">
+                                            </control>
+                                            
+                                            <panel childLayout="horizontal" height="30px">
+                                                <text style="ma_button#text" width="50px" text="Value: "  />
+                                                <control id="compDisplayValue" name="textfield" text="" style="nifty-textfield-my"/>
+                                            </panel>
+
+                                            <panel childLayout="horizontal">
+                                                <control id="editComponent" name="button" valign="center" width="50px" align="center" style="ma_button" label="Edit" >
+                                                    <interact onClick="editComponent()"/>
+                                                </control>                                         
+                                                <control id="compEditValue" name="textfield" text="" style="nifty-textfield-my"/>
+                                            </panel>
+                                            
+                                            <panel height="8px">
+                                            </panel>
+                                                                                                                                    
+                                            <panel childLayout="horizontal" valign="center" align="center">
+                                                <control id="addComponent" name="button" valign="center" align="center" style="ma_button" label="Add" >
+                                                    <interact onClick="addComponentButton()"/>
+                                                </control> 
+                                                <control id="removeSelectedComponent" name="button" valign="center" align="center" style="ma_button" label="Remove" >
+                                                    <interact onClick="removeSelectedComponentButton()"/>
+                                                </control>
+                                            </panel>                                    
+
+                                            <panel height="8px">
+                                            </panel>
+                                        
+                                            <panel childLayout="vertical" valign="center" align="center">
+                                                <effect>
+                                                    <onActive name="border" color="#8888" />
+                                                </effect>
+                            
+                                                <control name="label" text="Apply to Selected" />
+                                        
+                                                <panel childLayout="horizontal">
+                                                    <control id="copyComponentToSelectedEntity" name="button" valign="center" align="center" style="ma_button" label="Copy" >
+                                                        <interact onClick="copyComponentToSelectedEntityButton()"/>
+                                                    </control>
+                                                    <control id="removeComponentFromSelectedEntity" name="button" valign="center" align="center" style="ma_button" label="Remove" >
+                                                        <interact onClick="removeComponentFromSelectedEntityButton()"/>
+                                                    </control>
+                                                </panel>
+                                            </panel>
+                                        </panel>                                
+                                
+                                    </panel>
+                                </control>
+                            </control>
+
+                            <control id="LightsTab" name="tab" caption="Lights" group="settingsTabsGroup" style="nifty-tabs-my">
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1200px" width="100%" align="center" childLayout="vertical"  >
+                                    </panel>
+                                </control>
+                            </control>
+                        
+                            <control id="GridTab" name="tab" caption="Grid" group="settingsTabsGroup" style="nifty-tabs-my">
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1200px" width="100%" align="center" childLayout="vertical"  >
+                                    </panel>
+                                </control>
+                            </control>
+                        
+                            <control id="PropsTab" name="tab" caption="Props" group="settingsTabsGroup" style="nifty-tabs-my">
+                                <control name="scrollPanel-my" horizontal="false" width="100%" height="100%" padding="5" stepSizeY="100" pageSizeY="100" autoScroll="off" >
+                                    <panel height="1200px" width="100%" align="center" childLayout="vertical"  >
+
+
+                                    </panel>
+                                </control>
+                            </control>
+
+
+                        </control> 
+
+                    </panel> 
+                    
+                </panel>    
+                                    
+            </panel>
+      
+        </layer>
+    </screen>
+</nifty>
